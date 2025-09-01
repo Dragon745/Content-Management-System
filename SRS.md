@@ -1,10 +1,10 @@
 # Software Requirements Specification (SRS)
 
-## Headless Content Management System (CMS)
+## Blog Management System
 
 **Version:** 1.0  
 **Date:** December 2024  
-**Project:** Headless CMS with Go and PostgreSQL
+**Project:** Blog Management System with Go and PostgreSQL
 
 ---
 
@@ -28,18 +28,18 @@
 
 ### 1.1 Purpose
 
-This document outlines the requirements for a modern headless Content Management System (CMS) built with Go and PostgreSQL. The system will provide a robust, scalable, and flexible content management solution for web applications, mobile apps, and other digital platforms.
+This document outlines the requirements for a modern blog management system built with Go and PostgreSQL. The system will provide a simple, efficient way to create, manage, and publish blog posts with categories, SEO optimization, and image support.
 
 ### 1.2 Scope
 
-The headless CMS will serve as a content backend that provides content through RESTful APIs, allowing frontend applications to consume and display content dynamically.
+The blog management system will serve as a backend API that allows users to create and manage blog posts, categories, and media assets. It will provide RESTful APIs for blog content delivery to frontend applications.
 
 ### 1.3 Definitions
 
-- **Headless CMS**: A content management system that provides content through APIs without a built-in frontend
-- **Content Types**: Reusable templates for different kinds of content
-- **Content Entries**: Individual pieces of content based on content types
-- **Assets**: Media files (images, videos, documents) managed by the CMS
+- **Blog Post**: An individual article or post with title, content, and metadata
+- **Category**: A classification system for organizing blog posts
+- **SEO**: Search Engine Optimization features for better discoverability
+- **Media**: Images and other files associated with blog posts
 - **API**: Application Programming Interface for content delivery
 
 ---
@@ -53,17 +53,16 @@ graph TB
     subgraph "External Systems"
         A[Web Applications]
         B[Mobile Apps]
-        C[IoT Devices]
-        D[Third-party Services]
+        C[Blog Readers]
+        D[Search Engines]
     end
 
-    subgraph "Headless CMS"
+    subgraph "Blog Management System"
         E[API Gateway]
         F[Authentication Service]
-        G[Content Management Service]
-        H[Asset Management Service]
-        I[User Management Service]
-        J[Analytics Service]
+        G[Blog Management Service]
+        H[Media Management Service]
+        I[SEO Service]
     end
 
     subgraph "Data Layer"
@@ -79,11 +78,9 @@ graph TB
     E --> G
     E --> H
     E --> I
-    E --> J
     G --> K
     H --> K
     I --> K
-    J --> K
     H --> M
 ```
 
@@ -91,81 +88,104 @@ graph TB
 
 ```mermaid
 mindmap
-  root((Headless CMS))
-    Content Management
-      Content Types
-      Content Entries
-      Content Versioning
-      Content Scheduling
-      Content Localization
-    Asset Management
-      File Upload
+  root((Blog Management System))
+    Blog Management
+      Create Posts
+      Edit Posts
+      Delete Posts
+      Draft System
+      Publish/Unpublish
+    Category Management
+      Create Categories
+      Edit Categories
+      Delete Categories
+      Category Hierarchy
+    Media Management
+      Image Upload
       Image Processing
       Media Library
-      Asset Optimization
+      Image Optimization
+    SEO Features
+      Meta Tags
+      Open Graph
+      Schema Markup
+      Sitemap Generation
     User Management
       User Authentication
       Role-based Access
-      Permission System
-      User Profiles
-    API Services
-      RESTful APIs
-      GraphQL Support
-      Webhook System
-      Rate Limiting
-    Analytics & Monitoring
-      Content Analytics
-      Performance Metrics
-      Error Tracking
-      Usage Statistics
+      Author Profiles
 ```
 
 ---
 
 ## 3. Functional Requirements
 
-### 3.1 Content Management
+### 3.1 Blog Post Management
 
-#### 3.1.1 Content Types Management
+#### 3.1.1 Blog Post CRUD Operations
 
-- **FR-001**: System shall allow creation of custom content types with flexible field definitions
-- **FR-002**: System shall support various field types (text, rich text, number, date, boolean, reference, media)
-- **FR-003**: System shall allow content type validation rules
-- **FR-004**: System shall support content type versioning
+- **FR-001**: System shall allow creation of blog posts with title, content, and metadata
+- **FR-002**: System shall support editing and updating of blog posts
+- **FR-003**: System shall allow deletion of blog posts
+- **FR-004**: System shall support draft and published states for posts
+- **FR-005**: System shall allow scheduling of posts for future publication
 
-#### 3.1.2 Content Entries Management
+#### 3.1.2 Blog Post Features
 
-- **FR-005**: System shall allow creation, reading, updating, and deletion of content entries
-- **FR-006**: System shall support content versioning and rollback
-- **FR-007**: System shall allow content scheduling (publish/unpublish dates)
-- **FR-008**: System shall support content localization (multi-language)
+- **FR-006**: System shall support rich text content with formatting options
+- **FR-007**: System shall allow assignment of categories to blog posts
+- **FR-008**: System shall support tags for additional classification
+- **FR-009**: System shall allow setting featured images for posts
+- **FR-010**: System shall support excerpt/summary for posts
 
-### 3.2 Asset Management
+### 3.2 Category Management
 
-#### 3.2.1 File Management
+#### 3.2.1 Category Operations
 
-- **FR-009**: System shall support file upload with size and type validation
-- **FR-010**: System shall provide image processing capabilities (resize, crop, format conversion)
-- **FR-011**: System shall maintain a media library with search and filtering
-- **FR-012**: System shall support asset optimization and CDN integration
+- **FR-011**: System shall allow creation of categories with name and description
+- **FR-012**: System shall support editing and updating of categories
+- **FR-013**: System shall allow deletion of categories
+- **FR-014**: System shall support category hierarchy (parent-child relationships)
+- **FR-015**: System shall allow setting category images/icons
 
-### 3.3 User Management
+### 3.3 Media Management
 
-#### 3.3.1 Authentication & Authorization
+#### 3.3.1 Image Management
 
-- **FR-013**: System shall provide secure user authentication (JWT tokens)
-- **FR-014**: System shall support role-based access control (RBAC)
-- **FR-015**: System shall allow granular permissions for content and assets
-- **FR-016**: System shall support multi-factor authentication (MFA)
+- **FR-016**: System shall support image upload with size and type validation
+- **FR-017**: System shall provide image processing capabilities (resize, crop, format conversion)
+- **FR-018**: System shall maintain a media library with search and filtering
+- **FR-019**: System shall support image optimization for web delivery
+- **FR-020**: System shall allow setting alt text for accessibility
 
-### 3.4 API Services
+### 3.4 SEO Features
 
-#### 3.4.1 Content Delivery APIs
+#### 3.4.1 SEO Management
 
-- **FR-017**: System shall provide RESTful APIs for content retrieval
-- **FR-018**: System shall support GraphQL queries for flexible data fetching
-- **FR-019**: System shall implement API versioning
-- **FR-020**: System shall provide webhook notifications for content changes
+- **FR-021**: System shall allow setting meta title and description for posts
+- **FR-022**: System shall support Open Graph tags for social media sharing
+- **FR-023**: System shall generate schema markup for search engines
+- **FR-024**: System shall support custom URL slugs for posts
+- **FR-025**: System shall generate XML sitemaps automatically
+
+### 3.5 User Management
+
+#### 3.5.1 Authentication & Authorization
+
+- **FR-026**: System shall provide secure user authentication (JWT tokens)
+- **FR-027**: System shall support role-based access control (Admin, Author, Editor)
+- **FR-028**: System shall allow user profile management
+- **FR-029**: System shall support password reset functionality
+
+### 3.6 API Services
+
+#### 3.6.1 Content Delivery APIs
+
+- **FR-030**: System shall provide RESTful APIs for blog post retrieval
+- **FR-031**: System shall support filtering posts by category, tags, and date
+- **FR-032**: System shall provide search functionality for posts
+- **FR-033**: System shall support pagination for large post lists
+- **FR-034**: System shall provide category listing and management APIs
 
 ---
 
@@ -174,9 +194,9 @@ mindmap
 ### 4.1 Performance Requirements
 
 - **NFR-001**: API response time shall be < 200ms for 95% of requests
-- **NFR-002**: System shall handle 1000+ concurrent users
-- **NFR-003**: System shall support 10,000+ content entries
-- **NFR-004**: File upload shall support files up to 100MB
+- **NFR-002**: System shall handle 500+ concurrent users
+- **NFR-003**: System shall support 10,000+ blog posts
+- **NFR-004**: Image upload shall support files up to 10MB
 
 ### 4.2 Scalability Requirements
 
@@ -185,16 +205,16 @@ mindmap
 
 ### 4.3 Security Requirements
 
-- **NFR-008**: All API communications shall use HTTPS
-- **NFR-009**: System shall implement rate limiting
-- **NFR-010**: System shall support CORS configuration
-- **NFR-011**: System shall implement input validation and sanitization
+- **NFR-007**: All API communications shall use HTTPS
+- **NFR-008**: System shall implement rate limiting
+- **NFR-009**: System shall support CORS configuration
+- **NFR-010**: System shall implement input validation and sanitization
 
 ### 4.4 Availability Requirements
 
-- **NFR-012**: System shall have 99.9% uptime
-- **NFR-013**: System shall implement automated backups
-- **NFR-014**: System shall support disaster recovery
+- **NFR-011**: System shall have 99.9% uptime
+- **NFR-012**: System shall implement automated backups
+- **NFR-013**: System shall support disaster recovery
 
 ---
 
@@ -205,9 +225,9 @@ mindmap
 ```mermaid
 graph TB
     subgraph "Client Layer"
-        A[Web Dashboard]
-        B[Mobile App]
-        C[Third-party Apps]
+        A[Admin Dashboard]
+        B[Blog Frontend]
+        C[Mobile App]
     end
 
     subgraph "API Layer"
@@ -217,11 +237,10 @@ graph TB
     end
 
     subgraph "Application Layer"
-        G[Content Service]
-        H[Asset Service]
-        I[User Service]
+        G[Blog Service]
+        H[Media Service]
+        I[SEO Service]
         J[Auth Service]
-        K[Analytics Service]
     end
 
     subgraph "Data Layer"
@@ -239,52 +258,15 @@ graph TB
     F --> H
     F --> I
     F --> J
-    F --> K
     G --> L
     H --> L
     I --> L
     J --> L
-    K --> L
     G --> M
     H --> O
 ```
 
-### 5.2 Microservices Architecture
-
-```mermaid
-graph LR
-    subgraph "API Gateway"
-        A[Router]
-        B[Auth Middleware]
-        C[Rate Limiter]
-    end
-
-    subgraph "Services"
-        D[Content Service]
-        E[Asset Service]
-        F[User Service]
-        G[Notification Service]
-    end
-
-    subgraph "Shared"
-        H[Message Queue]
-        I[Event Bus]
-    end
-
-    A --> B
-    B --> C
-    C --> D
-    C --> E
-    C --> F
-    C --> G
-    D --> H
-    E --> H
-    F --> H
-    G --> H
-    H --> I
-```
-
-### 5.3 Database Schema Overview
+### 5.2 Database Schema Overview
 
 ```mermaid
 erDiagram
@@ -295,62 +277,51 @@ erDiagram
         string password_hash
         string first_name
         string last_name
+        string role
         boolean is_active
         timestamp created_at
         timestamp updated_at
     }
 
-    ROLES {
-        uuid id PK
-        string name
-        string description
-        timestamp created_at
-    }
-
-    USER_ROLES {
-        uuid user_id FK
-        uuid role_id FK
-        timestamp created_at
-    }
-
-    PERMISSIONS {
-        uuid id PK
-        string name
-        string resource
-        string action
-        timestamp created_at
-    }
-
-    ROLE_PERMISSIONS {
-        uuid role_id FK
-        uuid permission_id FK
-        timestamp created_at
-    }
-
-    CONTENT_TYPES {
+    CATEGORIES {
         uuid id PK
         string name
         string slug
-        json schema
+        string description
+        uuid parent_id FK
+        string image_url
         boolean is_active
         timestamp created_at
         timestamp updated_at
     }
 
-    CONTENT_ENTRIES {
+    BLOG_POSTS {
         uuid id PK
-        uuid content_type_id FK
-        uuid created_by FK
-        uuid updated_by FK
         string title
-        json data
+        string slug
+        text content
+        text excerpt
+        string featured_image
         string status
+        uuid author_id FK
+        uuid category_id FK
+        json tags
         timestamp published_at
         timestamp created_at
         timestamp updated_at
     }
 
-    ASSETS {
+    POST_SEO {
+        uuid post_id FK
+        string meta_title
+        text meta_description
+        json open_graph
+        json schema_markup
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    MEDIA {
         uuid id PK
         uuid uploaded_by FK
         string filename
@@ -358,52 +329,53 @@ erDiagram
         string mime_type
         bigint file_size
         string file_path
+        string alt_text
         json metadata
         timestamp created_at
     }
 
-    USERS ||--o{ USER_ROLES : has
-    ROLES ||--o{ USER_ROLES : assigned_to
-    ROLES ||--o{ ROLE_PERMISSIONS : has
-    PERMISSIONS ||--o{ ROLE_PERMISSIONS : assigned_to
-    USERS ||--o{ CONTENT_ENTRIES : creates
-    USERS ||--o{ CONTENT_ENTRIES : updates
-    USERS ||--o{ ASSETS : uploads
-    CONTENT_TYPES ||--o{ CONTENT_ENTRIES : contains
+    USERS ||--o{ BLOG_POSTS : writes
+    CATEGORIES ||--o{ BLOG_POSTS : contains
+    CATEGORIES ||--o{ CATEGORIES : parent_of
+    BLOG_POSTS ||--|| POST_SEO : has
+    USERS ||--o{ MEDIA : uploads
 ```
 
 ---
 
 ## 6. Data Models
 
-### 6.1 Content Type Schema
+### 6.1 Blog Post Structure
 
 ```mermaid
 graph TD
-    A[Content Type] --> B[Basic Info]
-    A --> C[Fields]
-    A --> D[Settings]
+    A[Blog Post] --> B[Basic Info]
+    A --> C[Content]
+    A --> D[SEO]
+    A --> E[Media]
 
-    B --> B1[Name]
+    B --> B1[Title]
     B --> B2[Slug]
-    B --> B3[Description]
+    B --> B3[Status]
+    B --> B4[Author]
+    B --> B5[Category]
+    B --> B6[Tags]
 
-    C --> C1[Text Field]
-    C --> C2[Rich Text Field]
-    C --> C3[Number Field]
-    C --> C4[Date Field]
-    C --> C5[Boolean Field]
-    C --> C6[Reference Field]
-    C --> C7[Media Field]
-    C --> C8[Array Field]
+    C --> C1[Content Body]
+    C --> C2[Excerpt]
+    C --> C3[Featured Image]
 
-    D --> D1[Validation Rules]
-    D --> D2[Default Values]
-    D --> D3[Required Fields]
-    D --> D4[Unique Constraints]
+    D --> D1[Meta Title]
+    D --> D2[Meta Description]
+    D --> D3[Open Graph]
+    D --> D4[Schema Markup]
+
+    E --> E1[Images]
+    E --> E2[Alt Text]
+    E --> E3[Image Optimization]
 ```
 
-### 6.2 Content Entry Lifecycle
+### 6.2 Blog Post Lifecycle
 
 ```mermaid
 stateDiagram-v2
@@ -435,33 +407,28 @@ graph LR
         A4[POST /auth/logout]
     end
 
-    subgraph "Content Management"
-        B1[GET /content-types]
-        B2[POST /content-types]
-        B3[GET /content-types/:id]
-        B4[PUT /content-types/:id]
-        B5[DELETE /content-types/:id]
-        B6[GET /content-entries]
-        B7[POST /content-entries]
-        B8[GET /content-entries/:id]
-        B9[PUT /content-entries/:id]
-        B10[DELETE /content-entries/:id]
+    subgraph "Blog Management"
+        B1[GET /posts]
+        B2[POST /posts]
+        B3[GET /posts/:id]
+        B4[PUT /posts/:id]
+        B5[DELETE /posts/:id]
+        B6[GET /posts/search]
     end
 
-    subgraph "Asset Management"
-        C1[GET /assets]
-        C2[POST /assets/upload]
-        C3[GET /assets/:id]
-        C4[DELETE /assets/:id]
-        C5[GET /assets/:id/download]
+    subgraph "Category Management"
+        C1[GET /categories]
+        C2[POST /categories]
+        C3[GET /categories/:id]
+        C4[PUT /categories/:id]
+        C5[DELETE /categories/:id]
     end
 
-    subgraph "User Management"
-        D1[GET /users]
-        D2[POST /users]
-        D3[GET /users/:id]
-        D4[PUT /users/:id]
-        D5[DELETE /users/:id]
+    subgraph "Media Management"
+        D1[GET /media]
+        D2[POST /media/upload]
+        D3[GET /media/:id]
+        D4[DELETE /media/:id]
     end
 ```
 
@@ -472,16 +439,16 @@ sequenceDiagram
     participant Client
     participant API Gateway
     participant Auth Service
-    participant Content Service
+    participant Blog Service
     participant Database
 
-    Client->>API Gateway: GET /content-entries
+    Client->>API Gateway: GET /posts
     API Gateway->>Auth Service: Validate Token
     Auth Service-->>API Gateway: Token Valid
-    API Gateway->>Content Service: Forward Request
-    Content Service->>Database: Query Content
-    Database-->>Content Service: Content Data
-    Content Service-->>API Gateway: Formatted Response
+    API Gateway->>Blog Service: Forward Request
+    Blog Service->>Database: Query Posts
+    Database-->>Blog Service: Posts Data
+    Blog Service-->>API Gateway: Formatted Response
     API Gateway-->>Client: JSON Response
 ```
 
@@ -546,52 +513,53 @@ sequenceDiagram
 
 ```mermaid
 graph TD
-    A[Admin Dashboard] --> B[Content Management]
-    A --> C[Asset Management]
-    A --> D[User Management]
-    A --> E[System Settings]
-    A --> F[Analytics]
+    A[Admin Dashboard] --> B[Blog Management]
+    A --> C[Category Management]
+    A --> D[Media Management]
+    A --> E[SEO Management]
+    A --> F[User Management]
 
-    B --> B1[Content Types]
-    B --> B2[Content Entries]
-    B --> B3[Content Editor]
-    B --> B4[Content Preview]
+    B --> B1[All Posts]
+    B --> B2[Create Post]
+    B --> B3[Post Editor]
+    B --> B4[Post Preview]
 
-    C --> C1[Media Library]
-    C --> C2[File Upload]
-    C --> C3[Asset Editor]
+    C --> C1[Categories List]
+    C --> C2[Create Category]
+    C --> C3[Category Editor]
 
-    D --> D1[Users List]
-    D --> D2[Roles & Permissions]
-    D --> D3[User Profile]
+    D --> D1[Media Library]
+    D --> D2[Upload Media]
+    D --> D3[Media Editor]
 
-    E --> E1[API Settings]
-    E --> E2[Security Settings]
-    E --> E3[Backup Settings]
+    E --> E1[SEO Settings]
+    E --> E2[Sitemap]
+    E --> E3[Analytics]
 
-    F --> F1[Content Analytics]
-    F --> F2[User Analytics]
-    F --> F3[Performance Metrics]
+    F --> F1[Users List]
+    F --> F2[User Profile]
+    F --> F3[Permissions]
 ```
 
-### 9.2 Content Editor Interface
+### 9.2 Blog Post Editor Interface
 
 ```mermaid
 graph LR
-    subgraph "Content Editor"
-        A[Toolbar] --> B[Content Type Selector]
-        A --> C[Save Button]
-        A --> D[Preview Button]
-        A --> E[Publish Button]
+    subgraph "Blog Post Editor"
+        A[Toolbar] --> B[Save Draft]
+        A --> C[Preview]
+        A --> D[Publish]
+        A --> E[Schedule]
 
-        F[Field Editor] --> G[Text Fields]
+        F[Content Area] --> G[Title Field]
         F --> H[Rich Text Editor]
-        F --> I[Media Fields]
-        F --> J[Reference Fields]
+        F --> I[Excerpt Field]
+        F --> J[Tags Field]
 
-        K[Sidebar] --> L[Content History]
-        K --> M[Related Content]
+        K[Sidebar] --> L[Category Selector]
+        K --> M[Featured Image]
         K --> N[SEO Settings]
+        K --> O[Publish Settings]
     end
 ```
 
@@ -606,11 +574,11 @@ graph TB
     subgraph "Performance Monitoring"
         A[Response Time] --> A1[API Latency]
         A --> A2[Database Query Time]
-        A --> A3[File Upload Time]
+        A --> A3[Image Load Time]
 
         B[Throughput] --> B1[Requests per Second]
         B --> B2[Concurrent Users]
-        B --> B3[Data Transfer Rate]
+        B --> B3[Posts per Day]
 
         C[Resource Usage] --> C1[CPU Usage]
         C --> C2[Memory Usage]
@@ -661,12 +629,8 @@ graph TB
 
         C --> D[(Replica DB)]
 
-        E[Database Cluster] --> E1[Primary DB]
-        E --> E2[Read Replica 1]
-        E --> E3[Read Replica 2]
-
-        F[File Storage] --> F1[S3 Compatible]
-        F --> F2[CDN]
+        E[File Storage] --> E1[S3 Compatible]
+        E --> E2[CDN]
     end
 ```
 
@@ -689,9 +653,9 @@ graph LR
 
 ## 12. Conclusion
 
-This SRS document provides a comprehensive overview of the headless CMS requirements, architecture, and specifications. The system is designed to be scalable, secure, and performant while providing flexible content management capabilities through modern APIs.
+This SRS document provides a comprehensive overview of the blog management system requirements, architecture, and specifications. The system is designed to be simple, efficient, and focused on blog management with essential features like categories, SEO optimization, and media management.
 
-The implementation will follow Go best practices and utilize PostgreSQL for robust data storage, ensuring the system can handle enterprise-level content management needs.
+The implementation will follow Go best practices and utilize PostgreSQL for robust data storage, ensuring the system can handle blog management needs effectively.
 
 ---
 
